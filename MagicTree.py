@@ -2,7 +2,8 @@ import sys
 import os
 from pprint import pprint as pp
 
-
+answerContinue ='yes'
+answerExit='no'
 
 def first_user_input():
 	pp("Please enter how many times you like to loop: ")
@@ -21,11 +22,24 @@ def second_user_input(numeric):
 	for i in range (numeric):
 		print "So user wishes to loop " + str(numeric) + " times"
 		print("Please enter the cycle times for {} loops".format(numeric))
-		allUserInputCycles = map(int,raw_input("enter positive numbers separated by a single space only: " ).split())	
-		for i in allUserInputCycles:
-			if i < 0:
-				raise ValueError("Negative cycle not excepted")
-		return allUserInputCycles
+		allUserInputCycles = map(int,raw_input("enter positive numbers separated by a single space only: " ).split())
+		lengthOfUserInput = len(allUserInputCycles)
+		if lengthOfUserInput != numeric:
+			print ValueError("You entered either less or more cycles")
+			print("Do you wish to continue? Y or N: ")
+			userAnswerFirst = raw_input()
+			if userAnswerFirst == 'Y' or userAnswerFirst == 'y':
+				continue
+			else:
+				print("You decided not to continue, so exiting... ")
+				break
+		else:
+			for i in allUserInputCycles:
+				if i < 0:
+					raise ValueError("Negative cycle not excepted")
+			return allUserInputCycles
+		
+
 	
 def calc_height(age):
     if age==0:
@@ -39,12 +53,13 @@ def calc_height(age):
 		return actualHeight
 		
 def main():
-	firstUserInput = first_user_input()
-	secondUserInput = second_user_input(firstUserInput)
-	print "secondUserInput: " + str(secondUserInput)
-	for iLocalValue in secondUserInput:
-		finalHeight = calc_height(iLocalValue)
-		print "FinalHeight of magic tree: " + str(finalHeight) + " years"
+	while True:
+		firstUserInput = first_user_input()
+		secondUserInput = second_user_input(firstUserInput)
+		print "secondUserInput: " + str(secondUserInput)
+		for iLocalValue in secondUserInput:
+			finalHeight = calc_height(iLocalValue)
+			print "FinalHeight of magic tree: " + str(finalHeight) + " years"
 	
 if __name__ == '__main__':
 	main()
