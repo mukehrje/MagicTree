@@ -1,22 +1,40 @@
 import sys
 import os
 from pprint import pprint as pp
+import string
+
 
 answerContinue ='yes'
 answerExit='no'
 
+
+def return_first_char_as_number(string):
+	listString = list(string)
+	print listString
+	newNumberString = []
+	for i,v in enumerate(listString):
+		ordValue = ord(v)
+		newNumberString.append(ordValue)
+	return newNumberString
+
 def first_user_input():
 	pp("Please enter how many times you like to loop: ")
 	number = raw_input()
+	if number.isalpha():
+		try:
+			receivedArray = return_first_char_as_number(number)
+		except:
+			ValueError("Some other tantrum by user. Not handled")
+	number = receivedArray[0]
 	if number <= 0:
 		raise ValueError("You entered invalid input, must be greater than zero") 
-	pp("You have entered {}".format(number))
+	pp("Either you have entered {} or you entered a string and we picked the int value of first character in the string".format(number))
 	try:
 		return int(number)
 	except:
 		ValueError("Cannot convert to number")
 		raise
-		
+
 		
 def second_user_input(numeric):
 	for i in range (numeric):
